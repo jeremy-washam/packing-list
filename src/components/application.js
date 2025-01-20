@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import {
   createItem,
   filterItems,
@@ -62,4 +62,4 @@ const Application = () => {
   );
 };
 
-export default Application;
+export default memo(Application);

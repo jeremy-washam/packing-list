@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const NewItem = ({ newItemName, setNewItemName, addItem }) => {
   return (
     <form
@@ -34,4 +36,4 @@ const NewItem = ({ newItemName, setNewItemName, addItem }) => {
   );
 };
 
-export default NewItem;
+export default memo(NewItem);
