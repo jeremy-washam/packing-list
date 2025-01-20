@@ -31,9 +31,9 @@ const Application = () => {
   const unpackedItems = useMemo(() => filterItems(items, { packed: false }), [items]);
   const packedItems = useMemo(() => filterItems(items, { packed: true }), [items]);
 
-  const markAllAsUnpacked = () => {
+  const markAllAsUnpacked = useCallback(() => {
     return setItems(items.map((item) => ({ ...item, packed: false })));
-  };
+  }, [items]);
 
   return (
     <main className="flex flex-col gap-8 p-8 mx-auto lg:max-w-4xl">
