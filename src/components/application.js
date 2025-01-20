@@ -17,23 +17,23 @@ const Application = () => {
 
   const add = useCallback((name) => {
     const item = createItem(name);
-    setItems([...items, item]);
-  }, [items]);
+    setItems(prev => [...prev, item]);
+  }, []);
 
   const update = useCallback((id, updates) => {
-    setItems(updateItem(items, id, updates));
-  }, [items]);
+    setItems(prev => updateItem(prev, id, updates));
+  }, []);
 
   const remove = useCallback((id) => {
-    setItems(removeItem(items, id));
-  }, [items]);
+    setItems(prev => removeItem(prev, id));
+  }, []);
 
   const unpackedItems = useMemo(() => filterItems(items, { packed: false }), [items]);
   const packedItems = useMemo(() => filterItems(items, { packed: true }), [items]);
 
-  const markAllAsUnpacked = () => {
-    return setItems(items.map((item) => ({ ...item, packed: false })));
-  };
+  const markAllAsUnpacked = useCallback(() => {
+    return setItems(prev => prev.map((item) => ({ ...item, packed: false })));
+  }, []);
 
   return (
     <main className="flex flex-col gap-8 p-8 mx-auto lg:max-w-4xl">
