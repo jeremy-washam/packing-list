@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   createItem,
   filterItems,
@@ -15,21 +15,21 @@ const Application = () => {
   const [items, setItems] = useState(getInitialItems());
   const [newItemName, setNewItemName] = useState('');
 
-  const add = (name) => {
+  const add = useCallback((name) => {
     const item = createItem(name);
     setItems([...items, item]);
-  };
+  }, [items]);
 
-  const update = (id, updates) => {
+  const update = useCallback((id, updates) => {
     setItems(updateItem(items, id, updates));
-  };
+  }, [items]);
 
-  const remove = (id) => {
+  const remove = useCallback((id) => {
     setItems(removeItem(items, id));
-  };
+  }, [items]);
 
-  const unpackedItems = filterItems(items, { packed: false });
-  const packedItems = filterItems(items, { packed: true });
+  const unpackedItems = useMemo(() => filterItems(items, { packed: false }), [items]);
+  const packedItems = useMemo(() => filterItems(items, { packed: true }), [items]);
 
   const markAllAsUnpacked = () => {
     return setItems(items.map((item) => ({ ...item, packed: false })));
